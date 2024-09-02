@@ -5,7 +5,7 @@
 #include <iostream>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
-void displayMessageandStars(const std::string& message) {
+void displayCriticalMessage(const std::string& message) {
     cout << message << "\n";
     for (int i = 0; i < 6; i++) {
         cout << "\r* " << flush;
@@ -27,18 +27,17 @@ bool isSpo2OutOfRange(float spo2) {
     return spo2 < 90;
 }
 
+int checkVital(float value, bool (*condition)(float), const std::string& message) {
+    if (condition(value)) {
+        displayCriticalMessage(message);
+        return 0;
+    }
+    return 1;
+}
+
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    if (isTemperatureCritical(temperature)) {
-        displayMessageandStars("Temperature is critical!");
-        return 0;
-    }
-    else if (isPulseRateOutOfRange(pulseRate)) {
-        displayMessageandStars("Pulse Rate is out of range!");
-        return 0;
-    }
-    else if (isSpo2OutOfRange(spo2)) {
-        displayMessageandStars("Oxygen Saturation out of range!");
-        return 0;
-    }
+    if (!checkVital(temperature, isTemperatureCritical, "Temperature is critical!")) return 0;
+    if (!checkVital(pulseRate, isPulseRateOutOfRange, "Pulse Rate is out of range!")) return 0;
+    if (!checkVital(spo2, isSpo2OutOfRange, "Oxygen Saturation out of range!")) return 0;
     return 1;
 }
