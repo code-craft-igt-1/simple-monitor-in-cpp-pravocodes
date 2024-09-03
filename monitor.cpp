@@ -5,7 +5,7 @@
 #include <iostream>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
-void displayCriticalMessage(const std::string& message) {
+void displayMessageandStars(const std::string& message) {
     cout << message << "\n";
     for (int i = 0; i < 6; i++) {
         cout << "\r* " << flush;
@@ -15,29 +15,38 @@ void displayCriticalMessage(const std::string& message) {
     }
 }
 
-bool isTemperatureCritical(float temperature) {
-    return temperature > 102 || temperature < 95;
+
+bool CheckForRange(float value, float minimum, float maximum) {
+    return (value >= minimum && value <= maximum);
 }
 
-bool isPulseRateOutOfRange(float pulseRate) {
-    return pulseRate < 60 || pulseRate > 100;
-}
-
-bool isSpo2OutOfRange(float spo2) {
-    return spo2 < 90;
-}
-
-int checkVital(float value, bool (*condition)(float), const std::string& message) {
-    if (condition(value)) {
-        displayCriticalMessage(message);
-        return 0;
+bool printTemperatureMessage(float temperature) {
+    if (!CheckForRange(temperature, 95, 102)) {
+        displayMessageandStars("Temperature is critical!");
+        return false;
     }
-    return 1;
+    return true;
+}
+
+bool printPulseRateMessage(float pulseRate) {
+    if (!CheckForRange(pulseRate, 60, 100)) {
+        displayMessageandStars("Pulse Rate is out of range!");
+        return false;
+    }
+    return true;
+}
+
+bool printSpo2Message(float spo2) {
+    if (spo2 < 90) {
+        displayMessageandStars("Oxygen Saturation out of range!");
+        return false;
+    }
+    return true;
 }
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    if (!checkVital(temperature, isTemperatureCritical, "Temperature is critical!")) return 0;
-    if (!checkVital(pulseRate, isPulseRateOutOfRange, "Pulse Rate is out of range!")) return 0;
-    if (!checkVital(spo2, isSpo2OutOfRange, "Oxygen Saturation out of range!")) return 0;
-    return 1;
+    bool isTemperatureOk = printTemperatureMessage(temperature);
+    bool isPulseOk = printPulseRateMessage(pulseRate);
+    bool isSpo2Ok = printSpo2Message(spo2);
+    return isTemperatureOk && isPulseOk && isSpo2Ok;
 }
