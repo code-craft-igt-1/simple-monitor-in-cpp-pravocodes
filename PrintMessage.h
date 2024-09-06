@@ -3,4 +3,4 @@
 #include <string>
 using std::cout;
 
-void displayMessageandStars(const std::string& message);
+void displayLoaderAndMessage(const std::string& message);
