@@ -32,8 +32,8 @@ std::map<Language, std::map<std::string, std::string>> messages = {
         {"NEAR_PULSE_LOW", "Warnung: Nahe niedriger Pulsfrequenz"},
         {"PULSE_HIGH", "Pulsfrequenz ist zu hoch!"},
         {"NEAR_PULSE_HIGH", "Warnung: Nahe hoher Pulsfrequenz"},
-        {"SPO2_LOW", "Sauerstoffsättigung ist zu niedrig!"},
-        {"NEAR_SPO2_LOW", "Warnung: Nahe niedriger Sauerstoffsättigung"}
+        {"SPO2_LOW", "Sauerstoffsttigung ist zu niedrig!"},
+        {"NEAR_SPO2_LOW", "Warnung: Nahe niedriger Sauerstoffsttigung"}
     }}
 };
 

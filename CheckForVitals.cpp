@@ -29,7 +29,7 @@ bool isAboveUpperLimit(float value, float upperLimit, const std::string& message
     return false;
 }
 
-bool isExcedingLimit(float value, float upperLimit, float tolerance, 
+bool isExcedingLimit(float value, float upperLimit, float tolerance,
     const std::string& message) {
     if (value > upperLimit - tolerance) {
         displayLoaderAndMessage(message);
@@ -54,28 +54,13 @@ bool checkAndDisplay(float value, float lowerLimit, float upperLimit,
 
 
 bool isTemperatureInRange(float temperature, Language lang) {
-    return checkAndDisplay(
-        temperature,
-        95,
-        102,
-        "HYPO_THERMIA",
-        "NEAR_HYPER" );
+    return checkAndDisplay(temperature, 95, 102, "HYPO_THERMIA", "NEAR_HYPER");
 }
 
 bool isPulseRateInRange(float pulseRate, Language lang) {
-    return checkAndDisplay(
-        pulseRate,
-        60,
-        100,
-        "PULSE_LOW",
-        "NEAR_PULSE_HIGH" );
+    return checkAndDisplay(pulseRate, 60, 100, "PULSE_LOW", "NEAR_PULSE_HIGH");
 }
 
 bool isSpo2InRange(float spo2, Language lang) {
-    return checkAndDisplay(
-        spo2,
-        90,
-        100,
-        "SPO2_LOW",
-        "NEAR_SPO2_LOW" );
+    return checkAndDisplay( spo2, 90, 100, "SPO2_LOW", "NEAR_SPO2_LOW");
 }
